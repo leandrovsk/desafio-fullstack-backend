@@ -16,7 +16,7 @@ A API tem um total de 5 endpoints
 
 <h2 align ='center'> Cadastrando Usúarios </h2>
 
-`POST /register -  FORMATO DA REQUISIÇÃO`
+`POST /users -  FORMATO DA REQUISIÇÃO`
 ```json
 {
   "name": "José Maria da Silva",
@@ -125,7 +125,7 @@ Nos casos em que o acessToken informado for invalido, é esperada a seguinte res
 
 <h2 align ='center'> Visualizar usuário</h2>
 
-Para mostrar os dados dousuário logado: 
+Para mostrar os dados do usuário logado: 
 
 `GET /users -  FORMATO DA REQUISIÇÃO`
 
@@ -215,3 +215,141 @@ Caso tente alterar dados de um outro usuário:
   }
 ```
 
+<h2 align ='center'> Cadastrando Contatos </h2>
+
+`POST /contacts -  FORMATO DA REQUISIÇÃO`
+```json
+{
+	"name": "Maria José da Silva",
+	"email": "maria@mail.com",
+	"phone": "(81)00000-0000"
+}
+```
+
+Caso a solicitação seja bem sucedida, deverá retornar os dados do usuário como abaixo:
+
+
+`FORMATO DA RESPOSTA - STATUS 201`
+```json
+{
+  "id" : "96d1d710-e0e2-4c00-9314-8191ede103fc",
+  "name": "Maria José da Silva",
+	"email": "maria@mail.com",
+	"phone": "(81)00000-0000",
+  "createdAt": "2023-07-30"
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+
+Se caso falte algum campo na requisição:
+
+
+`` FORMATO DA RESPOSTA - STATUS 400``
+```json
+{
+	"message": {
+		"name": [
+			"Required"
+		],
+		"email": [
+			"Required"
+		],
+		"phone": [
+			"Required"
+		]
+	}
+}
+```
+
+<h2 align ='center'> Visualizar contatos</h2>
+
+Para mostrar os contatos cadastrados pelo usuário logado: 
+
+`GET /contacts -  FORMATO DA REQUISIÇÃO`
+
+`FORMATO DA RESPOSTA - STATUS 200`
+
+```json
+[
+	{
+    "id" : "96d1d710-e0e2-4c00-9314-8191ede103fc",
+    "name": "Maria José da Silva",
+    "email": "maria@mail.com",
+    "phone": "(81)00000-0000",
+    "createdAt": "2023-07-30"
+	},
+	{
+    "id" : "a5f6d271-762d-4b79-9cb1-c8fe1fff5573",
+    "name": "José Maria da Silva",
+    "email": "jose@mail.com",
+    "phone": "(81)00000-0000",
+    "createdAt": "2023-07-30"
+	}
+]
+```
+
+<h2 align ='center'> Editar contato</h2>
+
+<b>Para editar os dados do contato:</b>
+
+É possível enviar um ou mais campos para alteração:
+
+`PATCH /contacts/{id do contato} - FORMATO DA REQUISIÇÃO`
+```json
+{
+  "phone": "(11)11111-1111"
+}
+```
+
+`FORMATO DA RESPOSTA - STATUS 200`
+
+```json
+{
+    "id" : "96d1d710-e0e2-4c00-9314-8191ede103fc",
+    "name": "Maria José da Silva",
+    "email": "maria@mail.com",
+    "phone": "(11)11111-1111",
+    "createdAt": "2023-07-30"
+}
+```
+
+
+<h2 align ='center'> Deletar contato</h2>
+
+<b>Para deletar os dados do contato:</b>
+
+`DELETE /contacts/{id do contato} -  FORMATO DA REQUISIÇÃO`
+
+`FORMATO DA RESPOSTA - STATUS 204 - NO CONTENT`
+
+
+<h2 align ='center'> Erros comuns para rotas de GET, PATCH E DELETE</h2>
+
+Caso recebido um UUID invalido:
+
+`` FORMATO DA RESPOSTA - STATUS 400``
+```json
+  {
+    "message": "Invalid UUID credentials"
+  }
+```
+
+Caso o UUID recebido não exista no banco de dados:
+
+`` FORMATO DA RESPOSTA - STATUS 404``
+```json
+  {
+    "message": "Contact UUID not found"
+  }
+```
+
+Caso tente alterar dados do contato de um outro usuário:
+
+`` FORMATO DA RESPOSTA - STATUS 400``
+```json
+  {
+    "message": "Insufficient permissions"
+  }
+```
