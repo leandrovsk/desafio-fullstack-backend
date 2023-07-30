@@ -8,15 +8,6 @@ import { userSchemaResponse } from "../../schemas/users.schemas";
 const createUserService = async (data: TUserRequest): Promise<TUserResponse> => {
     const { email, name, password, phone } = data
     const userRepository = AppDataSource.getRepository(User)
-    const findUser = await userRepository.findOne({
-        where: {
-            email
-        }
-    })
-
-    if (findUser) {
-        throw new AppError("user already exists", 409)
-    }
 
     const hashedPassword = await hash(password, 10)
 

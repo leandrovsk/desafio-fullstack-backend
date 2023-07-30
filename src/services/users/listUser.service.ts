@@ -14,10 +14,6 @@ const listUserService = async (userId: string): Promise<TUserResponse> => {
         }
     })
 
-    if (!user) {
-        throw new AppError("user not found", 404)
-    }
-
     return userSchemaResponse.parse(user)
 }
 
