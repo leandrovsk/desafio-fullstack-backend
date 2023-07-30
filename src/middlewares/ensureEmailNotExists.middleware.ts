@@ -13,7 +13,7 @@ const ensureEmailNotExistsMiddleware = async (req: Request, res: Response, next:
 
         if (user) {
             return res.status(409).json({
-                message: "email already exists"
+                message: "Email already exists"
             })
         }
     }

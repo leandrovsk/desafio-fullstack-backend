@@ -6,7 +6,7 @@ const ensureUserMatches = (req: Request, res: Response, next: NextFunction) => {
     const userTokenId = res.locals.userId
 
     if (userId !== userTokenId) {
-        throw new AppError("insufficient permissions", 403)
+        throw new AppError("Insufficient permissions", 403)
     }
 
     return next()
