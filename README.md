@@ -48,7 +48,9 @@ Email já existente no banco de dados:
 
 `` FORMATO DA RESPOSTA - STATUS 409``
 ```json
+{
   "message": "Email already exists"
+}
 ```
 
 Se caso falte algum campo na requisição:
@@ -58,18 +60,18 @@ Se caso falte algum campo na requisição:
 ```json
 {
   "message": {
-      "name": [
-          "Required"
-      ],
-      "email": [
-          "Required"
-      ],
-      "password": [
-          "Required"
-      ],
-      "phone": [
-          "Required"
-      ]
+    "name": [
+        "Required"
+    ],
+    "email": [
+        "Required"
+    ],
+    "password": [
+        "Required"
+    ],
+    "phone": [
+        "Required"
+    ]
   }
 }
 ```
@@ -79,8 +81,8 @@ Se caso falte algum campo na requisição:
 `POST /login - FORMATO DA REQUISIÇÃO`
 ```json
 {
-	"email": "jose@mail.com",
-	"password": "123456"
+  "email": "jose@mail.com",
+  "password": "123456"
 }
 ```
 
@@ -101,9 +103,9 @@ Caso você acabe errando e mandando algum campo errado, a resposta de erro será
 
 `` FORMATO DA RESPOSTA - STATUS 403``
 ```json
-  {
-    "message": "Invalid credentials"
-  }
+{
+  "message": "Invalid credentials"
+}
 ```
 
 
@@ -117,9 +119,9 @@ Nos casos em que o acessToken informado for invalido, é esperada a seguinte res
 
 `` FORMATO DA RESPOSTA - STATUS 401``
 ```json
-  {
-    "message": "Invalid accessToken"
-  }
+{
+  "message": "Invalid accessToken"
+}
 ```
 
 
@@ -172,9 +174,9 @@ Nos casos em que o campo email foi enviado e ele já exista no banco de dados:
 
 `` FORMATO DA RESPOSTA - STATUS 409``
 ```json
-  {
-    "message": "Email already exists"
-  }
+{
+  "message": "Email already exists"
+}
 ```
 
 <h2 align ='center'> Deletar usuário</h2>
@@ -192,27 +194,27 @@ Caso recebido um UUID invalido:
 
 `` FORMATO DA RESPOSTA - STATUS 400``
 ```json
-  {
-    "message": "Invalid UUID credentials"
-  }
+{
+  "message": "Invalid UUID credentials"
+}
 ```
 
 Caso o UUID recebido não exista no banco de dados:
 
 `` FORMATO DA RESPOSTA - STATUS 404``
 ```json
-  {
-    "message": "User UUID not found"
-  }
+{
+  "message": "User UUID not found"
+}
 ```
 
 Caso tente alterar dados de um outro usuário:
 
 `` FORMATO DA RESPOSTA - STATUS 400``
 ```json
-  {
-    "message": "Insufficient permissions"
-  }
+{
+  "message": "Insufficient permissions"
+}
 ```
 
 <h2 align ='center'> Cadastrando Contatos </h2>
@@ -220,9 +222,9 @@ Caso tente alterar dados de um outro usuário:
 `POST /contacts -  FORMATO DA REQUISIÇÃO`
 ```json
 {
-	"name": "Maria José da Silva",
-	"email": "maria@mail.com",
-	"phone": "(81)00000-0000"
+  "name": "Maria José da Silva",
+  "email": "maria@mail.com",
+  "phone": "(81)00000-0000"
 }
 ```
 
@@ -234,8 +236,8 @@ Caso a solicitação seja bem sucedida, deverá retornar os dados do usuário co
 {
   "id" : "96d1d710-e0e2-4c00-9314-8191ede103fc",
   "name": "Maria José da Silva",
-	"email": "maria@mail.com",
-	"phone": "(81)00000-0000",
+  "email": "maria@mail.com",
+  "phone": "(81)00000-0000",
   "createdAt": "2023-07-30"
 }
 ```
@@ -249,17 +251,17 @@ Se caso falte algum campo na requisição:
 `` FORMATO DA RESPOSTA - STATUS 400``
 ```json
 {
-	"message": {
-		"name": [
-			"Required"
-		],
-		"email": [
-			"Required"
-		],
-		"phone": [
-			"Required"
-		]
-	}
+  "message": {
+    "name": [
+      "Required"
+    ],
+    "email": [
+      "Required"
+    ],
+    "phone": [
+      "Required"
+    ]
+  }
 }
 ```
 
@@ -273,20 +275,20 @@ Para mostrar os contatos cadastrados pelo usuário logado:
 
 ```json
 [
-	{
+  {
     "id" : "96d1d710-e0e2-4c00-9314-8191ede103fc",
     "name": "Maria José da Silva",
     "email": "maria@mail.com",
     "phone": "(81)00000-0000",
     "createdAt": "2023-07-30"
-	},
-	{
+  },
+  {
     "id" : "a5f6d271-762d-4b79-9cb1-c8fe1fff5573",
     "name": "José Maria da Silva",
     "email": "jose@mail.com",
     "phone": "(81)00000-0000",
     "createdAt": "2023-07-30"
-	}
+  }
 ]
 ```
 
@@ -307,11 +309,11 @@ Para mostrar os contatos cadastrados pelo usuário logado:
 
 ```json
 {
-    "id" : "96d1d710-e0e2-4c00-9314-8191ede103fc",
-    "name": "Maria José da Silva",
-    "email": "maria@mail.com",
-    "phone": "(11)11111-1111",
-    "createdAt": "2023-07-30"
+  "id" : "96d1d710-e0e2-4c00-9314-8191ede103fc",
+  "name": "Maria José da Silva",
+  "email": "maria@mail.com",
+  "phone": "(11)11111-1111",
+  "createdAt": "2023-07-30"
 }
 ```
 
@@ -331,25 +333,25 @@ Caso recebido um UUID invalido:
 
 `` FORMATO DA RESPOSTA - STATUS 400``
 ```json
-  {
-    "message": "Invalid UUID credentials"
-  }
+{
+  "message": "Invalid UUID credentials"
+}
 ```
 
 Caso o UUID recebido não exista no banco de dados:
 
 `` FORMATO DA RESPOSTA - STATUS 404``
 ```json
-  {
-    "message": "Contact UUID not found"
-  }
+{
+  "message": "Contact UUID not found"
+}
 ```
 
 Caso tente alterar dados do contato de um outro usuário:
 
 `` FORMATO DA RESPOSTA - STATUS 400``
 ```json
-  {
-    "message": "Insufficient permissions"
-  }
+{
+  "message": "Insufficient permissions"
+}
 ```
