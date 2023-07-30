@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import AppDataSource from "../data-source";
 import { User } from "../entities/users.entity";
-import { UUID } from "typeorm/driver/mongodb/bson.typings";
 import { isUUID } from "class-validator";
 
 
