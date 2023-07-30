@@ -19,13 +19,13 @@ const ensureUserIsOwnerMiddleware = async (req: Request, res: Response, next: Ne
 
     if (!contact) {
         res.status(404).json({
-            message: "contact not found"
+            message: "Contact not found"
         })
     }
 
     if (contact?.user.id !== userId) {
         res.status(403).json({
-            message: "insufficient permissions"
+            message: "Insufficient permissions"
         })
     }
 
