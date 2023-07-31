@@ -3,6 +3,10 @@
 
 <p align="center">Este é o backend da aplicação Desafio Fullstack - Um sistema para criação e gerenciamento de contatos.</p>
 
+<p align="center">
+  Front-End da aplicação:
+  <a href="https://github.com/leandrovsk/desafio-fullstack-frontend">https://github.com/leandrovsk/desafio-fullstack-frontend</a>
+</p>
 
 <p align="center">
   <a href="#endpoints">Endpoints</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
