@@ -1,4 +1,3 @@
-
 <h1 align="center">Desafio FullStack - API</h1>
 
 <p align="center">Este é o backend da aplicação Desafio Fullstack - Um sistema para criação e gerenciamento de contatos.</p>
@@ -12,15 +11,48 @@
   <a href="#endpoints">Endpoints</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 
+<h2 align="center">Configuração Inicial</h2>
+
+Clone o projeto em sua máquina e instale as dependências com o comando:
+
+```shell
+yarn
+```
+
+<h3>Variáveis de Ambiente</h3>
+
+Em seguida, crie um arquivo **.env**, copiando o formato do arquivo **.env.example**:
+
+```
+cp .env.example .env
+```
+
+Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
+
+<h3>Migrations</h3>
+
+Execute as migrations com o comando:
+
+```
+yarn typeorm migration:run -d src/data-source.ts
+```
+
+<h3>Iniciando o Servidor Local</h3>
+
+Incie o servidor com o seguinte comando:
+
+```
+yarn dev
+```
 
 ## **Endpoints**
-
 
 A API tem um total de 5 endpoints
 
 <h2 align ='center'> Cadastrando Usúarios </h2>
 
 `POST /users -  FORMATO DA REQUISIÇÃO`
+
 ```json
 {
   "name": "José Maria da Silva",
@@ -32,11 +64,11 @@ A API tem um total de 5 endpoints
 
 Caso a solicitação seja bem sucedida, deverá retornar os dados do usuário como abaixo:
 
-
 `FORMATO DA RESPOSTA - STATUS 201`
+
 ```json
 {
-  "id" : "dae3c9d0-b317-40c6-9bfd-33c9ea936b9f",
+  "id": "dae3c9d0-b317-40c6-9bfd-33c9ea936b9f",
   "name": "José Maria da Silva",
   "email": "jose@mail.com",
   "phone": "(00)00000-0000",
@@ -50,7 +82,8 @@ Caso você acabe errando e mandando algum campo errado, a resposta de erro como 
 
 Email já existente no banco de dados:
 
-`` FORMATO DA RESPOSTA - STATUS 409``
+` FORMATO DA RESPOSTA - STATUS 409`
+
 ```json
 {
   "message": "Email already exists"
@@ -59,23 +92,15 @@ Email já existente no banco de dados:
 
 Se caso falte algum campo na requisição:
 
+` FORMATO DA RESPOSTA - STATUS 400`
 
-`` FORMATO DA RESPOSTA - STATUS 400``
 ```json
 {
   "message": {
-    "name": [
-        "Required"
-    ],
-    "email": [
-        "Required"
-    ],
-    "password": [
-        "Required"
-    ],
-    "phone": [
-        "Required"
-    ]
+    "name": ["Required"],
+    "email": ["Required"],
+    "password": ["Required"],
+    "phone": ["Required"]
   }
 }
 ```
@@ -83,6 +108,7 @@ Se caso falte algum campo na requisição:
 <h2 align ='center'> Fazendo Login </h2>
 
 `POST /login - FORMATO DA REQUISIÇÃO`
+
 ```json
 {
   "email": "jose@mail.com",
@@ -93,8 +119,8 @@ Se caso falte algum campo na requisição:
 Caso dê tudo certo, a resposta será um accessToken como abaixo:
 
 `POST /login -  FORMATO DA RESPOSTA - STATUS 200`
-```json
 
+```json
 {
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlYW5kcm9AbWFpbC5jb20iLCJpYXQiOjE2NzI5NDQzNTgsImV4cCI6MTY3Mjk0Nzk1OCwic3ViIjoiMSJ9.mpyzyIRuzotMOukNfYMtF70GPwUOPT-40eoURuMaKrQ"
 }
@@ -104,14 +130,13 @@ Caso dê tudo certo, a resposta será um accessToken como abaixo:
 
 Caso você acabe errando e mandando algum campo errado, a resposta de erro será assim:
 
+` FORMATO DA RESPOSTA - STATUS 403`
 
-`` FORMATO DA RESPOSTA - STATUS 403``
 ```json
 {
   "message": "Invalid credentials"
 }
 ```
-
 
 ## Rotas que necessitam de autorização
 
@@ -121,17 +146,17 @@ Rotas que necessitam de autorização deve ser informado no cabeçalho da requis
 
 Nos casos em que o acessToken informado for invalido, é esperada a seguinte resposta:
 
-`` FORMATO DA RESPOSTA - STATUS 401``
+` FORMATO DA RESPOSTA - STATUS 401`
+
 ```json
 {
   "message": "Invalid accessToken"
 }
 ```
 
-
 <h2 align ='center'> Visualizar usuário</h2>
 
-Para mostrar os dados do usuário logado: 
+Para mostrar os dados do usuário logado:
 
 `GET /users -  FORMATO DA REQUISIÇÃO`
 
@@ -139,7 +164,7 @@ Para mostrar os dados do usuário logado:
 
 ```json
 {
-  "id" : "dae3c9d0-b317-40c6-9bfd-33c9ea936b9f",
+  "id": "dae3c9d0-b317-40c6-9bfd-33c9ea936b9f",
   "name": "José Maria da Silva",
   "email": "jose@mail.com",
   "phone": "(00)00000-0000",
@@ -154,6 +179,7 @@ Para mostrar os dados do usuário logado:
 É possível enviar um ou mais campos para alteração:
 
 `PATCH /users/{id do usuário} - FORMATO DA REQUISIÇÃO`
+
 ```json
 {
   "email": "josemaria@mail.com"
@@ -164,7 +190,7 @@ Para mostrar os dados do usuário logado:
 
 ```json
 {
-  "id" : "dae3c9d0-b317-40c6-9bfd-33c9ea936b9f",
+  "id": "dae3c9d0-b317-40c6-9bfd-33c9ea936b9f",
   "name": "José Maria da Silva",
   "email": "josemaria@mail.com",
   "phone": "(00)00000-0000",
@@ -176,7 +202,8 @@ Para mostrar os dados do usuário logado:
 
 Nos casos em que o campo email foi enviado e ele já exista no banco de dados:
 
-`` FORMATO DA RESPOSTA - STATUS 409``
+` FORMATO DA RESPOSTA - STATUS 409`
+
 ```json
 {
   "message": "Email already exists"
@@ -191,12 +218,12 @@ Nos casos em que o campo email foi enviado e ele já exista no banco de dados:
 
 `FORMATO DA RESPOSTA - STATUS 204 - NO CONTENT`
 
-
 <h2 align ='center'> Erros comuns para rotas de GET, PATCH E DELETE</h2>
 
 Caso recebido um UUID invalido:
 
-`` FORMATO DA RESPOSTA - STATUS 400``
+` FORMATO DA RESPOSTA - STATUS 400`
+
 ```json
 {
   "message": "Invalid UUID credentials"
@@ -205,7 +232,8 @@ Caso recebido um UUID invalido:
 
 Caso o UUID recebido não exista no banco de dados:
 
-`` FORMATO DA RESPOSTA - STATUS 404``
+` FORMATO DA RESPOSTA - STATUS 404`
+
 ```json
 {
   "message": "User UUID not found"
@@ -214,7 +242,8 @@ Caso o UUID recebido não exista no banco de dados:
 
 Caso tente alterar dados de um outro usuário:
 
-`` FORMATO DA RESPOSTA - STATUS 400``
+` FORMATO DA RESPOSTA - STATUS 400`
+
 ```json
 {
   "message": "Insufficient permissions"
@@ -224,6 +253,7 @@ Caso tente alterar dados de um outro usuário:
 <h2 align ='center'> Cadastrando Contatos </h2>
 
 `POST /contacts -  FORMATO DA REQUISIÇÃO`
+
 ```json
 {
   "name": "Maria José da Silva",
@@ -234,11 +264,11 @@ Caso tente alterar dados de um outro usuário:
 
 Caso a solicitação seja bem sucedida, deverá retornar os dados do usuário como abaixo:
 
-
 `FORMATO DA RESPOSTA - STATUS 201`
+
 ```json
 {
-  "id" : "96d1d710-e0e2-4c00-9314-8191ede103fc",
+  "id": "96d1d710-e0e2-4c00-9314-8191ede103fc",
   "name": "Maria José da Silva",
   "email": "maria@mail.com",
   "phone": "(81)00000-0000",
@@ -248,30 +278,23 @@ Caso a solicitação seja bem sucedida, deverá retornar os dados do usuário co
 
 <h2 align ='center'> Possíveis erros </h2>
 
-
 Se caso falte algum campo na requisição:
 
+` FORMATO DA RESPOSTA - STATUS 400`
 
-`` FORMATO DA RESPOSTA - STATUS 400``
 ```json
 {
   "message": {
-    "name": [
-      "Required"
-    ],
-    "email": [
-      "Required"
-    ],
-    "phone": [
-      "Required"
-    ]
+    "name": ["Required"],
+    "email": ["Required"],
+    "phone": ["Required"]
   }
 }
 ```
 
 <h2 align ='center'> Visualizar contatos</h2>
 
-Para mostrar os contatos cadastrados pelo usuário logado: 
+Para mostrar os contatos cadastrados pelo usuário logado:
 
 `GET /contacts -  FORMATO DA REQUISIÇÃO`
 
@@ -280,14 +303,14 @@ Para mostrar os contatos cadastrados pelo usuário logado:
 ```json
 [
   {
-    "id" : "96d1d710-e0e2-4c00-9314-8191ede103fc",
+    "id": "96d1d710-e0e2-4c00-9314-8191ede103fc",
     "name": "Maria José da Silva",
     "email": "maria@mail.com",
     "phone": "(81)00000-0000",
     "createdAt": "2023-07-30"
   },
   {
-    "id" : "a5f6d271-762d-4b79-9cb1-c8fe1fff5573",
+    "id": "a5f6d271-762d-4b79-9cb1-c8fe1fff5573",
     "name": "José Maria da Silva",
     "email": "jose@mail.com",
     "phone": "(81)00000-0000",
@@ -303,6 +326,7 @@ Para mostrar os contatos cadastrados pelo usuário logado:
 É possível enviar um ou mais campos para alteração:
 
 `PATCH /contacts/{id do contato} - FORMATO DA REQUISIÇÃO`
+
 ```json
 {
   "phone": "(11)11111-1111"
@@ -313,14 +337,13 @@ Para mostrar os contatos cadastrados pelo usuário logado:
 
 ```json
 {
-  "id" : "96d1d710-e0e2-4c00-9314-8191ede103fc",
+  "id": "96d1d710-e0e2-4c00-9314-8191ede103fc",
   "name": "Maria José da Silva",
   "email": "maria@mail.com",
   "phone": "(11)11111-1111",
   "createdAt": "2023-07-30"
 }
 ```
-
 
 <h2 align ='center'> Deletar contato</h2>
 
@@ -330,12 +353,12 @@ Para mostrar os contatos cadastrados pelo usuário logado:
 
 `FORMATO DA RESPOSTA - STATUS 204 - NO CONTENT`
 
-
 <h2 align ='center'> Erros comuns para rotas de GET, PATCH E DELETE</h2>
 
 Caso recebido um UUID invalido:
 
-`` FORMATO DA RESPOSTA - STATUS 400``
+` FORMATO DA RESPOSTA - STATUS 400`
+
 ```json
 {
   "message": "Invalid UUID credentials"
@@ -344,7 +367,8 @@ Caso recebido um UUID invalido:
 
 Caso o UUID recebido não exista no banco de dados:
 
-`` FORMATO DA RESPOSTA - STATUS 404``
+` FORMATO DA RESPOSTA - STATUS 404`
+
 ```json
 {
   "message": "Contact UUID not found"
@@ -353,7 +377,8 @@ Caso o UUID recebido não exista no banco de dados:
 
 Caso tente alterar dados do contato de um outro usuário:
 
-`` FORMATO DA RESPOSTA - STATUS 400``
+` FORMATO DA RESPOSTA - STATUS 400`
+
 ```json
 {
   "message": "Insufficient permissions"
